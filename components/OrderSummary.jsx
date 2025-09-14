@@ -1,3 +1,4 @@
+import OrderSummary from '@/components/OrderSummary'
 import { PlusIcon, SquarePenIcon, XIcon } from 'lucide-react';
 import React, { useState } from 'react'
 import AddressModal from './AddressModal';
