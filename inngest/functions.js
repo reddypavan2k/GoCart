@@ -1,10 +1,9 @@
 import { inngest } from './client'
 import prisma from '../lib/prisma'
 
-// Handle user creation
 export const syncUserCreation = inngest.createFunction(
   { id: "sync-user-creation" },
-  { event: "clerk/user.created" },   // ✅ event trigger
+  { event: "clerk/user.created" },   // 👈 moved here
   async ({ event, step }) => {
     const { data } = event
     await step("Create User in DB", async () => {
@@ -20,10 +19,9 @@ export const syncUserCreation = inngest.createFunction(
   }
 )
 
-// Handle user updates
 export const syncUserUpdation = inngest.createFunction(
   { id: "sync-user-update" },
-  { event: "clerk/user.updated" },   // ✅ event trigger
+  { event: "clerk/user.updated" },   // 👈 trigger
   async ({ event }) => {
     const { data } = event
     await prisma.user.update({
@@ -37,10 +35,9 @@ export const syncUserUpdation = inngest.createFunction(
   }
 )
 
-// Handle user deletion
 export const syncUserDeletion = inngest.createFunction(
   { id: "sync-user-delete" },
-  { event: "clerk/user.deleted" },   // ✅ event trigger
+  { event: "clerk/user.deleted" },   // 👈 trigger
   async ({ event }) => {
     const { data } = event
     await prisma.user.delete({
